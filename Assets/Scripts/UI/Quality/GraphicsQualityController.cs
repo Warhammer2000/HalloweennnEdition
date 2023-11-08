@@ -7,10 +7,12 @@ using UnityEngine.UI;
 public class GraphicsQualityController : MonoBehaviour
 {
     [SerializeField] private Dropdown qualityDropdown;
+    [SerializeField] private Text qualityText;
 
     private void Start()
     {
         qualityDropdown = GetComponent<Dropdown>();
+        qualityText = transform.GetChild(0).GetComponent<Text>();
         SetQualitySettings();
     }
     private void SetQualitySettings()
@@ -25,6 +27,8 @@ public class GraphicsQualityController : MonoBehaviour
         qualityIndex = qualityDropdown.value;
 
         QualitySettings.SetQualityLevel(qualityIndex);
+
+        qualityText.text = QualitySettings.names[qualityIndex].ToString();  
         //вызываем проверку качества графики // 
         GraphicQualityCheker();
         ///Опиционально убрать после

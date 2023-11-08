@@ -15,7 +15,7 @@ public class SetupSettingPresenters : MonoBehaviour
     [SerializeField] Slider volumeSlider;
     [SerializeField] AudioSource musicSource;
 
-
+    [SerializeField] private bool isMainMenu;
     public void SetVolume(float volume)
     {
         volume = volumeSlider.value;
@@ -26,6 +26,6 @@ public class SetupSettingPresenters : MonoBehaviour
         _audioPresenter.Init(new Audio());
         _musicPresenter.Init(_music);
         _vibrationsPresenter.Init(new Vibration());
-        volumeSlider.value = musicSource.volume;
+        if (isMainMenu) volumeSlider.value = musicSource.volume;
     }
 }

@@ -2,6 +2,8 @@ using UnityEngine;
 using BabyStack.Model;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
+using UnityEngine.EventSystems;
+
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour, IModificationListener<float>
@@ -9,6 +11,8 @@ public class PlayerMovement : MonoBehaviour, IModificationListener<float>
     [SerializeField] private DoctorAnimation _animation;
     [SerializeField] private Transform _playerModel;
     [SerializeField] private float _speed;
+
+    [SerializeField] private Animator _animator;
 
     private Rigidbody _rigidbody;
     private float _speedRate = 1f;
@@ -28,20 +32,39 @@ public class PlayerMovement : MonoBehaviour, IModificationListener<float>
     {
         Move();
     }
-    private void Move()
+    public void Move()
     {
-        
+        _moveAction.Enable();
         Vector2 moveInput = _moveAction.ReadValue<Vector2>();
-        
-        Vector3 moveDirection = new Vector3(moveInput.x, 0, moveInput.y);
-        _playerModel.LookAt(_playerModel.position + moveDirection);
-        _rigidbody.velocity += moveDirection * _speed;
-        _animation.SetSpeed(moveDirection.magnitude);
-        IsMoving = true;
 
+        IsMoving = true;
+        AnotherMove(moveInput);
         if (_jumpAction.triggered)
         {
             _rigidbody.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
+        }
+    }
+    private void AnotherMove(Vector2 movementInput)
+    {
+
+
+        Vector3 movement = new Vector3(movementInput.x, 0, movementInput.y);
+        transform.Translate(movement * _speed * Time.deltaTime);
+        _playerModel.LookAt(_playerModel.position + movement);
+        _animation.SetSpeed(movementInput.magnitude);
+        Debug.Log(movement);
+        if (movement != Vector3.zero)
+        {
+            Debug.Log("Animation Succesed");
+            _animation.SetWalking(true);
+        }
+        IsMoving = true;
+        Debug.Log(movement.magnitude);
+
+
+        if (movementInput == Vector2.zero)
+        {
+            _animation.SetWalking(false);
         }
     }
     public void MoveJoystick(Vector3 direction)
@@ -59,6 +82,8 @@ public class PlayerMovement : MonoBehaviour, IModificationListener<float>
     {
         if (_rigidbody != null)
             _rigidbody.velocity = Vector3.zero;
+
+
 
         _animation.SetSpeed(0);
         IsMoving = false;

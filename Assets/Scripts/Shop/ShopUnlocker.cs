@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(CanvasShopPresenter))]
@@ -7,6 +8,8 @@ public class ShopUnlocker : MonoBehaviour
 {
     [SerializeField] private Button _shopButton;
     [SerializeField] private UnlockRule _unlockRule;
+   
+
 
     private CanvasShopPresenter _shopPresenter;
     public bool IsUnlocked { get; private set; } = false;
@@ -22,11 +25,13 @@ public class ShopUnlocker : MonoBehaviour
     private void OnEnable()
     {
         _unlockRule.AddUpdateListener(OnUnlocked);
+ 
     }
 
     private void OnDisable()
     {
         _unlockRule.RemoveUpdateListener(OnUnlocked);
+        
     }
 
     private void Start()

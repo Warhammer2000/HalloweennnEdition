@@ -10,6 +10,7 @@ public class AssistantPurchaseView : MonoBehaviour
     [SerializeField] private Button _freeAssistantButton;
     [SerializeField] private Animation _appearanceAnimation;
     [SerializeField] private GameObject _exclamationMark;
+    [SerializeField] private Button _DisplayTextButton;
 
     private FadeAnimation _fadeAnimation;
     private float _fadeDuration = 0.23f;
@@ -49,6 +50,7 @@ public class AssistantPurchaseView : MonoBehaviour
         _freeAssistantButton.gameObject.SetActive(true);
         _costButtonView.gameObject.SetActive(false);
         _rewardAssistantButton.gameObject.SetActive(false);
+      
     }
 
     public void DisplayPaidAssistant()
@@ -61,17 +63,20 @@ public class AssistantPurchaseView : MonoBehaviour
         _costButtonView.gameObject.SetActive(active);
         _rewardAssistantButton.gameObject.SetActive(active);
         _costButtonView.DisplayForBalance(balance);
+      
     }
 
     public void Disable()
     {
         _fadeAnimation.Disable(_fadeDuration);
+        _DisplayTextButton.gameObject.SetActive(false);
     }
 
     public void Enable()
     {
         _appearanceAnimation.Play();
         _fadeAnimation.Enable(_fadeDuration);
+        _DisplayTextButton.gameObject.SetActive(true);
     }
 
     private void OnFreeBuyClicked()

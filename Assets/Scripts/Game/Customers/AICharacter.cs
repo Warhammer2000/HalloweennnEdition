@@ -19,7 +19,7 @@ public class AICharacter : MonoBehaviour
 
     private void Update()
     {
-        _animation.SetSpeed(_movement.NormalizedSpeed);
+       // _animation.SetSpeed(_movement.NormalizedSpeed);
 
         if (_currentState == null)
             return;

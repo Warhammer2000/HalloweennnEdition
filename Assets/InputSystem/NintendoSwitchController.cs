@@ -7,7 +7,7 @@ using UnityEngine.InputSystem.Switch;
 
 public class NintendoSwitchController : MonoBehaviour
 {
-    public PlayerInput playerInput;
+    public PlayerInputScript playerInput;
     private float moveSpeed = 50;
     private float jumpForce = 100f;
     private NPad pad;
@@ -20,13 +20,18 @@ public class NintendoSwitchController : MonoBehaviour
     }
     private void OnEnable()
     {
-        playerInput.onActionTriggered += OnLeftStickMove;
-        playerInput.actions["Jump"].performed += OnJumpPerformed;
-        playerInput.actions["Move"].performed += OnLeftStickMove;
-        playerInput.actions["Forward"].performed += onForwaedButtonclick;
-        playerInput.actions["Back"].performed += onBackButtonclick;
-        playerInput.actions["Left"].performed += onLeftButtonclick;
-        playerInput.actions["Right"].performed += onRightButtonclick;
+        playerInput = new PlayerInputScript();
+
+        //playerInput.Player.Enable();
+        //playerInput.Player.Move.performed += OnLeftStickMove;
+
+       
+        //playerInput.Player.Jump.performed += OnJumpPerformed;
+     
+        //playerInput.Player.Forward.performed += onForwaedButtonclick;
+        //playerInput.Player.Back.performed += onBackButtonclick;
+        //playerInput.Player.Left.performed += onLeftButtonclick;
+        //playerInput.Player.Right.performed += onRightButtonclick;
     }
     
     private void onForwaedButtonclick(InputAction.CallbackContext context)
@@ -70,13 +75,15 @@ public class NintendoSwitchController : MonoBehaviour
     }
     private void OnDisable()
     {
-        playerInput.actions["Jump"].performed -= OnJumpPerformed;
+        //playerInput.Player.Move.performed -= OnLeftStickMove;
 
-        playerInput.onActionTriggered -= OnLeftStickMove;
-        playerInput.actions["Move"].performed -= OnLeftStickMove;
-        playerInput.actions["Forward"].performed -= onForwaedButtonclick;
-        playerInput.actions["Back"].performed -= onForwaedButtonclick;
-        playerInput.actions["Left"].performed -= onForwaedButtonclick;
-        playerInput.actions["Right"].performed -= onForwaedButtonclick;
+
+        //playerInput.Player.Jump.performed -= OnJumpPerformed;
+
+        //playerInput.Player.Forward.performed -= onForwaedButtonclick;
+        //playerInput.Player.Back.performed -= onBackButtonclick;
+        //playerInput.Player.Left.performed -= onLeftButtonclick;
+        //playerInput.Player.Right.performed -= onRightButtonclick;
+        //playerInput.Player.Disable();
     }
 }

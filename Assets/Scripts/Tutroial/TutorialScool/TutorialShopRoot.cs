@@ -20,7 +20,7 @@ public class TutorialShopRoot : MonoBehaviour
             return;
 
         _tutorialBehaviour.SequanceStepsEnded += OnTutorialCompleted;
-        _moveTutorial.Enable();
+        //_moveTutorial.Enable();
         _tutorialBehaviour.Enable();
         _tutorialAnalytics.Enable();
     }

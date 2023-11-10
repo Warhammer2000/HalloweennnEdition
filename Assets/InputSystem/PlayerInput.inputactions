@@ -15,6 +15,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Move",
+                    "type": "PassThrough",
+                    "id": "2b1abc83-136e-45c7-aadf-8994c3bf9d61",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "Forward",
                     "type": "Button",
                     "id": "804ee9cf-ad27-4796-a165-c064ac68e3c1",
@@ -51,31 +60,13 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Move",
-                    "type": "Value",
-                    "id": "2b1abc83-136e-45c7-aadf-8994c3bf9d61",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "MoveTrigger",
-                    "type": "Value",
-                    "id": "333cb61a-e4d4-432a-a496-1370368e3a1c",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "MoveButton",
+                    "name": "BackMenu",
                     "type": "Button",
-                    "id": "6723ec46-c1a5-4696-b720-51f6120351fb",
+                    "id": "d4ad90ef-979e-4290-b4dc-d103c6a50494",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -147,23 +138,12 @@
                 },
                 {
                     "name": "",
-                    "id": "10deb948-5844-4502-af68-6705382142c5",
-                    "path": "<Gamepad>/leftTrigger",
+                    "id": "b31d595e-cdd4-4d0d-a100-af5ac84bea00",
+                    "path": "",
                     "interactions": "",
                     "processors": "",
-                    "groups": "GamePad",
-                    "action": "MoveTrigger",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "67f57fda-6683-416c-8771-564f3e3ce3c0",
-                    "path": "<Gamepad>/leftShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "GamePad",
-                    "action": "MoveButton",
+                    "groups": "",
+                    "action": "BackMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

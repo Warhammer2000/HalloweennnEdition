@@ -32,7 +32,9 @@ public class JoystickInput : MonoBehaviour
         }
 
         Vector3 rawDirection = new Vector3(_joystick.Direction.x, 0, _joystick.Direction.y);
-        _movement.MoveJoystick(rawDirection);
+            _movement.MoveJoystick(rawDirection);
+
+       
 
         Moved?.Invoke();
     }

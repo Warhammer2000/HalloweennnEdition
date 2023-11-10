@@ -37,6 +37,15 @@ public partial class @PlayerInputScript: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Move"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""2b1abc83-136e-45c7-aadf-8994c3bf9d61"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
                     ""name"": ""Forward"",
                     ""type"": ""Button"",
                     ""id"": ""804ee9cf-ad27-4796-a165-c064ac68e3c1"",
@@ -73,31 +82,13 @@ public partial class @PlayerInputScript: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Move"",
-                    ""type"": ""Value"",
-                    ""id"": ""2b1abc83-136e-45c7-aadf-8994c3bf9d61"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""MoveTrigger"",
-                    ""type"": ""Value"",
-                    ""id"": ""333cb61a-e4d4-432a-a496-1370368e3a1c"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""MoveButton"",
+                    ""name"": ""BackMenu"",
                     ""type"": ""Button"",
-                    ""id"": ""6723ec46-c1a5-4696-b720-51f6120351fb"",
+                    ""id"": ""d4ad90ef-979e-4290-b4dc-d103c6a50494"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": true
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -169,23 +160,12 @@ public partial class @PlayerInputScript: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""10deb948-5844-4502-af68-6705382142c5"",
-                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""id"": ""b31d595e-cdd4-4d0d-a100-af5ac84bea00"",
+                    ""path"": """",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""GamePad"",
-                    ""action"": ""MoveTrigger"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""67f57fda-6683-416c-8771-564f3e3ce3c0"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""GamePad"",
-                    ""action"": ""MoveButton"",
+                    ""groups"": """",
+                    ""action"": ""BackMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -214,13 +194,12 @@ public partial class @PlayerInputScript: IInputActionCollection2, IDisposable
         // DefaultActionMap
         m_DefaultActionMap = asset.FindActionMap("DefaultActionMap", throwIfNotFound: true);
         m_DefaultActionMap_Jump = m_DefaultActionMap.FindAction("Jump", throwIfNotFound: true);
+        m_DefaultActionMap_Move = m_DefaultActionMap.FindAction("Move", throwIfNotFound: true);
         m_DefaultActionMap_Forward = m_DefaultActionMap.FindAction("Forward", throwIfNotFound: true);
         m_DefaultActionMap_Back = m_DefaultActionMap.FindAction("Back", throwIfNotFound: true);
         m_DefaultActionMap_Left = m_DefaultActionMap.FindAction("Left", throwIfNotFound: true);
         m_DefaultActionMap_Right = m_DefaultActionMap.FindAction("Right", throwIfNotFound: true);
-        m_DefaultActionMap_Move = m_DefaultActionMap.FindAction("Move", throwIfNotFound: true);
-        m_DefaultActionMap_MoveTrigger = m_DefaultActionMap.FindAction("MoveTrigger", throwIfNotFound: true);
-        m_DefaultActionMap_MoveButton = m_DefaultActionMap.FindAction("MoveButton", throwIfNotFound: true);
+        m_DefaultActionMap_BackMenu = m_DefaultActionMap.FindAction("BackMenu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -283,25 +262,23 @@ public partial class @PlayerInputScript: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_DefaultActionMap;
     private List<IDefaultActionMapActions> m_DefaultActionMapActionsCallbackInterfaces = new List<IDefaultActionMapActions>();
     private readonly InputAction m_DefaultActionMap_Jump;
+    private readonly InputAction m_DefaultActionMap_Move;
     private readonly InputAction m_DefaultActionMap_Forward;
     private readonly InputAction m_DefaultActionMap_Back;
     private readonly InputAction m_DefaultActionMap_Left;
     private readonly InputAction m_DefaultActionMap_Right;
-    private readonly InputAction m_DefaultActionMap_Move;
-    private readonly InputAction m_DefaultActionMap_MoveTrigger;
-    private readonly InputAction m_DefaultActionMap_MoveButton;
+    private readonly InputAction m_DefaultActionMap_BackMenu;
     public struct DefaultActionMapActions
     {
         private @PlayerInputScript m_Wrapper;
         public DefaultActionMapActions(@PlayerInputScript wrapper) { m_Wrapper = wrapper; }
         public InputAction @Jump => m_Wrapper.m_DefaultActionMap_Jump;
+        public InputAction @Move => m_Wrapper.m_DefaultActionMap_Move;
         public InputAction @Forward => m_Wrapper.m_DefaultActionMap_Forward;
         public InputAction @Back => m_Wrapper.m_DefaultActionMap_Back;
         public InputAction @Left => m_Wrapper.m_DefaultActionMap_Left;
         public InputAction @Right => m_Wrapper.m_DefaultActionMap_Right;
-        public InputAction @Move => m_Wrapper.m_DefaultActionMap_Move;
-        public InputAction @MoveTrigger => m_Wrapper.m_DefaultActionMap_MoveTrigger;
-        public InputAction @MoveButton => m_Wrapper.m_DefaultActionMap_MoveButton;
+        public InputAction @BackMenu => m_Wrapper.m_DefaultActionMap_BackMenu;
         public InputActionMap Get() { return m_Wrapper.m_DefaultActionMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -314,6 +291,9 @@ public partial class @PlayerInputScript: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
+            @Move.started += instance.OnMove;
+            @Move.performed += instance.OnMove;
+            @Move.canceled += instance.OnMove;
             @Forward.started += instance.OnForward;
             @Forward.performed += instance.OnForward;
             @Forward.canceled += instance.OnForward;
@@ -326,15 +306,9 @@ public partial class @PlayerInputScript: IInputActionCollection2, IDisposable
             @Right.started += instance.OnRight;
             @Right.performed += instance.OnRight;
             @Right.canceled += instance.OnRight;
-            @Move.started += instance.OnMove;
-            @Move.performed += instance.OnMove;
-            @Move.canceled += instance.OnMove;
-            @MoveTrigger.started += instance.OnMoveTrigger;
-            @MoveTrigger.performed += instance.OnMoveTrigger;
-            @MoveTrigger.canceled += instance.OnMoveTrigger;
-            @MoveButton.started += instance.OnMoveButton;
-            @MoveButton.performed += instance.OnMoveButton;
-            @MoveButton.canceled += instance.OnMoveButton;
+            @BackMenu.started += instance.OnBackMenu;
+            @BackMenu.performed += instance.OnBackMenu;
+            @BackMenu.canceled += instance.OnBackMenu;
         }
 
         private void UnregisterCallbacks(IDefaultActionMapActions instance)
@@ -342,6 +316,9 @@ public partial class @PlayerInputScript: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
+            @Move.started -= instance.OnMove;
+            @Move.performed -= instance.OnMove;
+            @Move.canceled -= instance.OnMove;
             @Forward.started -= instance.OnForward;
             @Forward.performed -= instance.OnForward;
             @Forward.canceled -= instance.OnForward;
@@ -354,15 +331,9 @@ public partial class @PlayerInputScript: IInputActionCollection2, IDisposable
             @Right.started -= instance.OnRight;
             @Right.performed -= instance.OnRight;
             @Right.canceled -= instance.OnRight;
-            @Move.started -= instance.OnMove;
-            @Move.performed -= instance.OnMove;
-            @Move.canceled -= instance.OnMove;
-            @MoveTrigger.started -= instance.OnMoveTrigger;
-            @MoveTrigger.performed -= instance.OnMoveTrigger;
-            @MoveTrigger.canceled -= instance.OnMoveTrigger;
-            @MoveButton.started -= instance.OnMoveButton;
-            @MoveButton.performed -= instance.OnMoveButton;
-            @MoveButton.canceled -= instance.OnMoveButton;
+            @BackMenu.started -= instance.OnBackMenu;
+            @BackMenu.performed -= instance.OnBackMenu;
+            @BackMenu.canceled -= instance.OnBackMenu;
         }
 
         public void RemoveCallbacks(IDefaultActionMapActions instance)
@@ -401,12 +372,11 @@ public partial class @PlayerInputScript: IInputActionCollection2, IDisposable
     public interface IDefaultActionMapActions
     {
         void OnJump(InputAction.CallbackContext context);
+        void OnMove(InputAction.CallbackContext context);
         void OnForward(InputAction.CallbackContext context);
         void OnBack(InputAction.CallbackContext context);
         void OnLeft(InputAction.CallbackContext context);
         void OnRight(InputAction.CallbackContext context);
-        void OnMove(InputAction.CallbackContext context);
-        void OnMoveTrigger(InputAction.CallbackContext context);
-        void OnMoveButton(InputAction.CallbackContext context);
+        void OnBackMenu(InputAction.CallbackContext context);
     }
 }

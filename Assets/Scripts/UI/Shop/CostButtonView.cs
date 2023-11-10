@@ -35,7 +35,6 @@ public class CostButtonView : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        Debug.Log(Balance);
         if (_buyAction.triggered && Balance >= _cost)
         {
             OnBuyButtonClicked();

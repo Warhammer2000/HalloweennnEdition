@@ -13,12 +13,21 @@ public class AIMovement : MonoBehaviour, IModificationListener<float>
     private float _speedRate = 1f;
 
     private NavMeshAgent _agent;
-    private UnityAction _completeAction;
+    private UnityAction _completeAction { get; set; }
+
+    public Action Begins;
+    public Action Finished;
 
     public bool Completed { get; private set; }
-    public float NormalizedSpeed => _agent.velocity.magnitude / 5f;
+    public float NormalizedSpeed => _agent.velocity.magnitude / 4f;
     public float RemainingDistance => _agent.remainingDistance;
 
+
+    private void OnEnable()
+    {
+        //Begins += AICharacter.instance.onFinished;
+        //Finished += AICharacter.instance.offFinished;
+    }
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
@@ -81,6 +90,7 @@ public class AIMovement : MonoBehaviour, IModificationListener<float>
 
     public void OnComplete(UnityAction completeAction)
     {
+        //Finished?.Invoke();
         _completeAction = completeAction;
     }
 

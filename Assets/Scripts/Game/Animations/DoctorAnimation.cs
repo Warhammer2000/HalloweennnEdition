@@ -4,18 +4,12 @@ public class DoctorAnimation : MonoBehaviour
 {
     [SerializeField] private StackPresenter _playerStack;
     public Animator animator;
+    public bool isEnemy;
+    public bool isStanding;
 
-
-    //public void ReturnInfo()
-    //{
-    //    AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
-    //    string nameInfo = stateInfo.IsName("Speed") ? "?" : "&&&";
-    //    Debug.Log(nameInfo);
-    //}
     private void Awake()
     {
         OnAwake();
-        animator = GameObject.Find("armature").GetComponent<Animator>();
     }
 
     private void OnEnable()
@@ -32,16 +26,22 @@ public class DoctorAnimation : MonoBehaviour
 
     public void SetSpeed(float normalizedSpeed)
     {
-        if (animator)
-            animator.SetFloat(AnimationParams.Speed, normalizedSpeed);
+        if (animator && !isEnemy)
+           animator.SetFloat(AnimationParams.Speed, normalizedSpeed);
+        
+    }
+    public void SetCreature(float speed)
+    {
+        if (animator && isEnemy && !isStanding)
+        {
+            if (speed > 0 && speed >= 0.1) animator.SetBool("walking", true);
+            if (speed < 0.1f || speed < 1f) animator.SetBool("walking", false);
+        }
+        
     }
     public void SetWalking(bool walking)
     {
         if (animator) animator.SetBool("walking", walking);
-    }
-    public void SetGamePad(float speed)
-    {
-        animator.SetFloat(AnimationParams.GamePad, speed);
     }
     protected virtual void OnAwake() { }
 
@@ -52,15 +52,20 @@ public class DoctorAnimation : MonoBehaviour
 
     public void UpdateHolding()
     {
-        if(_playerStack.Count == 0)
+        if (_playerStack.Count == 0)
             StopHolding();
         else
+        {
             Hold();
+        }
     }
 
     public void StopHolding()
     {
-        animator.SetLayerWeight(1, 0f);
+        if (!isEnemy)
+        {
+            animator.SetLayerWeight(1, 0f);
+        }
     }
 
     public void StartDigging()
@@ -85,13 +90,17 @@ public class DoctorAnimation : MonoBehaviour
 
     private void Hold()
     {
-        animator.SetLayerWeight(1, 1f);
+        if (!isEnemy)
+        {
+            animator.SetLayerWeight(1, 1f);
+        }
     }
 
 
     private static class AnimationParams
     {
         public static readonly string Speed = nameof(Speed);
+        public static readonly string Speedd = nameof(Speedd);
         public static readonly string GamePad = nameof(GamePad);
         public static readonly string Idle = nameof(Idle);
         public static readonly string Flying = nameof(Flying);

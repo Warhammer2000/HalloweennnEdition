@@ -8,7 +8,11 @@ public class AICharacter : MonoBehaviour
     [SerializeField] private StackPresenter _stack;
 
     private State _currentState;
-    
+    public static AICharacter instance;
+    private void Awake()
+    {
+        instance = this;
+    }
     public CharacterReferences References { get; private set; }
     public StackPresenter Stack => _stack;
 
@@ -16,10 +20,10 @@ public class AICharacter : MonoBehaviour
     {
         References = characterReferences;
     }
-
+  
     private void Update()
     {
-       // _animation.SetSpeed(_movement.NormalizedSpeed);
+        _animation.SetCreature(_movement.NormalizedSpeed);
 
         if (_currentState == null)
             return;

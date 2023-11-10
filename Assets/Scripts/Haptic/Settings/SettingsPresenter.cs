@@ -9,35 +9,46 @@ public class SettingsPresenter : MonoBehaviour
     [SerializeField] private Button _settingsButton;
     [SerializeField] private JoystickInput _joystickInput;
     [SerializeField] private Canvas _joystickCanvas;
-    [SerializeField] private InputAction _onMenuClicked;
+    [SerializeField] private InputAction _onMenuClickedPlus;
+    [SerializeField] private InputAction _onMenuClickedB;
+    [SerializeField] private InputAction _onSettingsClickedMinus;
     [SerializeField] private GameObject MenuPanel;
     [Space(10)]
     [SerializeField] private List<GameObject> _disabledUIObjects;
     private bool isButtonClicked = false;
+    private bool isButtonSettingsClicked = false;
     private void OnEnable()
     {
         _settingsButton.onClick.AddListener(OnSettingsButtonClick);
         _settings.CloseButtonClicked += OnCloseButtonClicked;
-        _onMenuClicked.Enable();
+        _onMenuClickedPlus.Enable();
+        _onMenuClickedB.Enable();
+        _onSettingsClickedMinus.Enable();
     }
 
     private void OnDisable()
     {
         _settingsButton.onClick.RemoveListener(OnSettingsButtonClick);
         _settings.CloseButtonClicked -= OnCloseButtonClicked;
-        _onMenuClicked.Disable();
+        _onMenuClickedPlus.Disable();
+        _onMenuClickedB.Disable();
     }
     private void Update()
     {
-        if (_onMenuClicked.triggered)
+        if (_onMenuClickedB.triggered || _onMenuClickedPlus.triggered)
         {
             isButtonClicked = !isButtonClicked;
             MenuPanel.SetActive(isButtonClicked);
         }
+        if (_onSettingsClickedMinus.triggered)
+        {
+            isButtonSettingsClicked = !isButtonSettingsClicked;
+            OnSettingsButtonClick();
+        }
     }
     private void OnSettingsButtonClick()
     {
-        _settings.gameObject.SetActive(true);
+        _settings.gameObject.SetActive(isButtonSettingsClicked);
         _disabledUIObjects.ForEach(item => item.SetActive(false));
         _joystickInput.enabled = false;
         _joystickCanvas.enabled = false;

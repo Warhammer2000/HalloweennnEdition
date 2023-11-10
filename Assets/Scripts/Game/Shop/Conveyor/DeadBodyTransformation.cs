@@ -11,4 +11,12 @@ public class DeadBodyTransformation : StackableTransformation
         else
             throw new InvalidOperationException("Invalid parameter");
     }
+
+    public override Stackable Transform(Stackable removedItem, bool what)
+    {
+        if (removedItem is Coffin coffin)
+            return coffin.UrnTemplate;
+        else
+            throw new InvalidOperationException("Invalid parameter");
+    }
 }

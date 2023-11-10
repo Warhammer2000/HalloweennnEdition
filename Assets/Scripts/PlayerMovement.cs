@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour, IModificationListener<float>
 
     [SerializeField] private InputAction _moveAction;
     [SerializeField] private InputAction _jumpAction;
-
+    private float teleportHeight = 1.500002f;
     public bool IsMoving { get; private set; }
 
     private void Awake()
@@ -30,11 +30,13 @@ public class PlayerMovement : MonoBehaviour, IModificationListener<float>
     }
     private void Update()
     {
+        CheckHightness();
         Move();
     }
     public void Move()
     {
         _moveAction.Enable();
+        _jumpAction.Enable();
         Vector2 moveInput = _moveAction.ReadValue<Vector2>();
 
         IsMoving = true;
@@ -49,22 +51,41 @@ public class PlayerMovement : MonoBehaviour, IModificationListener<float>
 
 
         Vector3 movement = new Vector3(movementInput.x, 0, movementInput.y);
+        _rigidbody.velocity = movement * _speed;
         transform.Translate(movement * _speed * Time.deltaTime);
+
+
+        if(_jumpAction.triggered) _rigidbody.AddForce(Vector3.up *_speed * 2, ForceMode.Impulse);
         _playerModel.LookAt(_playerModel.position + movement);
         _animation.SetSpeed(movementInput.magnitude);
-        Debug.Log(movement);
         if (movement != Vector3.zero)
         {
             Debug.Log("Animation Succesed");
+            _rigidbody.isKinematic = false;
             _animation.SetWalking(true);
         }
         IsMoving = true;
-        Debug.Log(movement.magnitude);
 
 
         if (movementInput == Vector2.zero)
         {
             _animation.SetWalking(false);
+        }
+    }
+    private void CheckHightness()
+    {
+        if (transform.position.y > teleportHeight)
+        {
+            Physics.gravity = new Vector3(default, -500f, default);
+           
+        }
+        else
+        {
+            Physics.gravity = new Vector3(default, -9.81f, default);
+        }
+        if(transform.position.y < -teleportHeight)
+        {
+            transform.position = new Vector3(transform.position.x, teleportHeight, transform.position.z);
         }
     }
     public void MoveJoystick(Vector3 direction)

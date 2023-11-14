@@ -43,6 +43,7 @@ namespace BabyStack.Model
         public void Save()
         {
             PlayerPrefs.SetInt(_guid, _currentModification);
+            PlayerPrefs.Save();
         }
 
 

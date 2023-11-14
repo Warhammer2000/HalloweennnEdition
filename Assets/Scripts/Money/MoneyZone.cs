@@ -22,6 +22,7 @@ public class MoneyZone : MonoBehaviour
     private void OnDisable()
     {
         PlayerPrefs.SetInt(_moneyZoneSavKey, _dollars.Count);
+        PlayerPrefs.Save();
     }
 
     public void Add(Dollar dollar)
@@ -47,6 +48,7 @@ public class MoneyZone : MonoBehaviour
 
         DollarsValue -= lastDollar.Value;
         PlayerPrefs.SetInt(_moneyZoneSavKey, _dollars.Count);
+        PlayerPrefs.Save();
 
         Changed?.Invoke();
         Removed?.Invoke();

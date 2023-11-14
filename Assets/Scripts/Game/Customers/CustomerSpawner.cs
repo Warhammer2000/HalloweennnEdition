@@ -85,7 +85,7 @@ public class CustomerSpawner : MonoBehaviour
     {
         Vector3 spawnPosition = _spawnZones[Random.Range(0, _spawnZones.Length)].GetPoint();
 
-        customer = Instantiate(customer, spawnPosition, Quaternion.identity);
+        customer = Instantiate(customer, spawnPosition + Vector3.up, Quaternion.identity);
         customer.transform.parent = transform;
         customer.Init(_characterReferences);
         customer.Run();

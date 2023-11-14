@@ -25,5 +25,6 @@ public class IntProgress : Progress
     public override void Save()
     {
         PlayerPrefs.SetInt(SaveKey, _currentProgress);
+        PlayerPrefs.Save();
     }
 }

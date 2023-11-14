@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Switch;
 
 public class SceneLoader : MonoBehaviour
 {
     [SerializeField] private Button CreateNewGameButton;
     [SerializeField] private Button LoadCurrentlevel;
     private string mainLevel = "Shop";
+
     private void Start()
     {
         CreateNewGameButton.onClick.AddListener(ClearPlayerPrefs);
@@ -21,6 +23,6 @@ public class SceneLoader : MonoBehaviour
         SceneManager.LoadScene(mainLevel);
     }
     private void LoadNeededLevel() => SceneManager.LoadScene(mainLevel);
-    
-    
+
+
 }

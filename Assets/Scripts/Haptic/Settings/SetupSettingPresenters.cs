@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using BabyStack.Settings;
+using UnityEngine.SceneManagement;
 
 public class SetupSettingPresenters : MonoBehaviour
 {
@@ -23,9 +24,14 @@ public class SetupSettingPresenters : MonoBehaviour
     }
     private void Start()
     {
+        if (_audioPresenter == null) return;
         _audioPresenter.Init(new Audio());
         _musicPresenter.Init(_music);
         _vibrationsPresenter.Init(new Vibration());
         if (isMainMenu) volumeSlider.value = musicSource.volume;
+    }
+    public void ExitToMenu()
+    {
+        SceneManager.LoadScene("Main_Menu");
     }
 }

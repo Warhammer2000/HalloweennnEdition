@@ -18,13 +18,13 @@ public class Analytics : Singleton<Analytics>
     private string _regDay
     {
         get { return PlayerPrefs.GetString(RegDayKey, DateTime.Today.ToString()); }
-        set { PlayerPrefs.SetString(RegDayKey, value); }
+        set { PlayerPrefs.SetString(RegDayKey, value); PlayerPrefs.Save(); }
     }
 
     private int _sessionCount
     {
         get { return PlayerPrefs.GetInt(SessionCountKey, 0); }
-        set { PlayerPrefs.SetInt(SessionCountKey, value); }
+        set { PlayerPrefs.SetInt(SessionCountKey, value); PlayerPrefs.Save(); }
     }
 
     protected override void OnAwake()
@@ -53,6 +53,7 @@ public class Analytics : Singleton<Analytics>
             {
                 FireAppsFlyerEvent("ret_1");
                 PlayerPrefs.SetInt(ReturningDay2Key, 1);
+                PlayerPrefs.Save();
             }
         }
     }

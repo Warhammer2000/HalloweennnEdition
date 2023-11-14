@@ -66,6 +66,7 @@ public class ListProgress : Progress
         {
             var json = JsonUtility.ToJson(this);
             PlayerPrefs.SetString(key, json);
+            PlayerPrefs.Save();
         }
     }
 }

@@ -27,6 +27,7 @@ namespace BabyStack.Settings
         private void SetActive(bool value)
         {
             PlayerPrefs.SetInt(SaveKey, Convert.ToInt32(value));
+            PlayerPrefs.Save();
         }
     }
 }

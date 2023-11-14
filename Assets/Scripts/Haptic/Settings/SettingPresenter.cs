@@ -4,7 +4,7 @@ using BabyStack.Settings;
 public class SettingPresenter : MonoBehaviour
 {
     [SerializeField] private SettingView _view;
-
+    [SerializeField] private AudioSource _globalAudio;
     private ISetting _setting;
 
     private void OnEnable()
@@ -41,5 +41,6 @@ public class SettingPresenter : MonoBehaviour
     private void UpdateView()
     {
         _view.Render(_setting.IsEnable);
+        _globalAudio.enabled = _setting.IsEnable;
     }
 }

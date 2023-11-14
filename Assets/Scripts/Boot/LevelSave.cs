@@ -30,6 +30,7 @@ public class LevelSave : MonoBehaviour
     private void OnLevelLoaded(LevelLoader.Level level)
     {
         PlayerPrefs.SetInt(CurrentLevelSaveKey, (int)level);
+        PlayerPrefs.Save();
     }
     public void CreateNewGame()
     {

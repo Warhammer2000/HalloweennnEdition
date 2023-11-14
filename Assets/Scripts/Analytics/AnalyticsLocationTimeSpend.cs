@@ -52,6 +52,7 @@ public class AnalyticsLocationTimeSpend : MonoBehaviour
         var saveTime = PlayerPrefs.GetInt(key, 0);
         var nextTime = saveTime + value;
         PlayerPrefs.SetInt(key, nextTime);
+        PlayerPrefs.Save();
 
         if (saveTime == 0 || (saveTime / 60 == nextTime / 60))
             return;

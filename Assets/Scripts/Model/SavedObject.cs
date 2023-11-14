@@ -15,6 +15,7 @@ namespace BabyStack.Model
         {
             var jsonString = JsonUtility.ToJson(this as T);
             PlayerPrefs.SetString(_guid, jsonString);
+            PlayerPrefs.Save();
         }
 
         public void Load()

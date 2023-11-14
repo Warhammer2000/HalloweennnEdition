@@ -53,6 +53,7 @@ public class TutorialShopRoot : MonoBehaviour
     private void OnTutorialCompleted()
     {
         PlayerPrefs.SetInt(TutorialSchoolKey, 1);
+        PlayerPrefs.Save();
         _tutorialBehaviour.SequanceStepsEnded -= OnTutorialCompleted;
         _tutorialBehaviour.Disable();
         _tutorialAnalytics.Disable();

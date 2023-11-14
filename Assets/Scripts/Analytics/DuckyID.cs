@@ -13,6 +13,7 @@ public class DuckyID
 
         value = "Ducky_" + SystemInfo.deviceUniqueIdentifier;
         PlayerPrefs.SetString(DuckyIDKey, value);
+        PlayerPrefs.Save();
 
         return value;
     }

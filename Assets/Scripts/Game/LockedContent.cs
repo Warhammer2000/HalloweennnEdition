@@ -11,5 +11,6 @@ public abstract class LockedContent : ScriptableObject, ILocationContent
     public void Unlock()
     {
         PlayerPrefs.SetInt(UnlockSaveKey, 1);
+        PlayerPrefs.Save();
     }
 }

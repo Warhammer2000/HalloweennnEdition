@@ -12,13 +12,22 @@ public class MenuView : MonoBehaviour
     private void OnEnable()
     {
         _closeButton.onClick.AddListener(OnCloseButtonClicked);
-        _reloadButton.onClick.AddListener(Restart);
+        if (_reloadButton != null)
+        {
+            _reloadButton.onClick.AddListener(Restart);
+        }
+        else return;
     }
 
     private void OnDisable()
     {
         _closeButton.onClick.RemoveListener(OnCloseButtonClicked);
-        _reloadButton.onClick.RemoveListener(Restart);
+        if (_reloadButton != null)
+        {
+            _reloadButton.onClick.RemoveListener(Restart);
+        }
+        else return;
+
     }
     private void Restart()
     {

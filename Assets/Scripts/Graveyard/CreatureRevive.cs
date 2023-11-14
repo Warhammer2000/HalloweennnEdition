@@ -24,6 +24,7 @@ public class CreatureRevive : MonoBehaviour
     
     private IEnumerator Activate()
     {
+        
         _obstacle.enabled = false;
         RevivedCustomer revivedCustomer = Instantiate(_customerTemplate, transform);
         revivedCustomer.Init(_graveEarth, _coffinAnimator, _references);

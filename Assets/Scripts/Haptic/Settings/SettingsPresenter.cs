@@ -19,7 +19,7 @@ public class SettingsPresenter : MonoBehaviour
     private bool isButtonSettingsClicked = false;
     private void OnEnable()
     {
-        _settingsButton.onClick.AddListener(OnSettingsButtonClick);
+        _settingsButton.onClick.AddListener(OnSettingsButtonClickUi);
         _settings.CloseButtonClicked += OnCloseButtonClicked;
         _onMenuClickedPlus.Enable();
         _onMenuClickedB.Enable();
@@ -28,7 +28,7 @@ public class SettingsPresenter : MonoBehaviour
 
     private void OnDisable()
     {
-        _settingsButton.onClick.RemoveListener(OnSettingsButtonClick);
+        _settingsButton.onClick.RemoveListener(OnSettingsButtonClickUi);
         _settings.CloseButtonClicked -= OnCloseButtonClicked;
         _onMenuClickedPlus.Disable();
         _onMenuClickedB.Disable();
@@ -49,6 +49,13 @@ public class SettingsPresenter : MonoBehaviour
     private void OnSettingsButtonClick()
     {
         _settings.gameObject.SetActive(isButtonSettingsClicked);
+        _disabledUIObjects.ForEach(item => item.SetActive(false));
+        _joystickInput.enabled = false;
+        _joystickCanvas.enabled = false;
+    }
+    private void OnSettingsButtonClickUi()
+    {
+        _settings.gameObject.SetActive(true);
         _disabledUIObjects.ForEach(item => item.SetActive(false));
         _joystickInput.enabled = false;
         _joystickCanvas.enabled = false;

@@ -19,7 +19,7 @@ public class AnalyticsPlayTimeLogger : Singleton<AnalyticsPlayTimeLogger>
     private string _allPlayTime
     {
         get { return PlayerPrefs.GetString(AllPlayTimeKey, TimeSpan.Zero.ToString()); }
-        set { PlayerPrefs.SetString(AllPlayTimeKey, value); }
+        set { PlayerPrefs.SetString(AllPlayTimeKey, value); PlayerPrefs.Save(); }
     }
 
     public TimeSpan AllPlayTime => _time;
